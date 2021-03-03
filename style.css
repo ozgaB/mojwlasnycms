@@ -25,4 +25,7 @@ a.akceptuj-regulamin :hover
     color:black;
     text-decoration: none;
 }
-//:link :visited :hover :active
+.text-small-red
+{
+    color: red;
+}
