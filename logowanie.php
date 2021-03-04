@@ -12,7 +12,7 @@ if(isset($_POST['login']))
            if($login_otrzymany==$_POST['login'])
            {
                $haslo_otrzymane=filter_var($_POST['password'], FILTER_SANITIZE_STRING);
-               $salt="solenie";
+               $salt="cmsByOzgaB";
                $haslo = hash("sha512", $salt.$haslo_otrzymane);
                $haslo_odebrane=pobierz_haslo($haslo);
                if($haslo==$haslo_odebrane)
@@ -34,7 +34,8 @@ if(isset($_POST['login']))
        }
        else
        {
-           header("Location: index.php");
+           $_SESSION['login_pusty_error'] = "<small class='form-text ' style='color:red;'>Pole loginu jest puste!</small>";
+           header("Location: index.php?page=zaloguj");
        }
     }
     else

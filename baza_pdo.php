@@ -51,11 +51,31 @@ try
         $options = array(PDO::MYSQL_ATTR_INIT_COMMAND, "SET NAMES 'UTF8'");
         $dbh = new PDO("mysql:host=localhost;dbname=ozgacms", "root", "", $options);
         $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        $sql="INSERT INTO uzytkownicy (login,haslo,email) VALUES(?,?,?)";
+        $sql="INSERT INTO users (login,password,email) VALUES(?,?,?)";
         $stmt=$dbh->prepare($sql);
+        try{
         $stmt->execute(array($login,$haslo,$email));
+        return 1;
         }
-    
+        catch (Exception $ex)
+        {
+            return 0;
+        } 
+        
+        }
+        function pobierz_email($email){
+        $options = array(PDO::MYSQL_ATTR_INIT_COMMAND, "SET NAMES 'UTF8'");
+        $dbh = new PDO("mysql:host=localhost;dbname=ozgacms", "root", "", $options);
+        $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $sql="SELECT email FROM users WHERE email=?";
+        $stmt=$dbh->prepare($sql);
+        $stmt->execute(array($email));
+            while($row = $stmt->fetch(PDO::FETCH_ASSOC))
+        {
+            return $row['email'];
+        }
+        $stmt->closeCursor(); 
+        }
     
     
 } catch (Exception $ex) {

@@ -28,6 +28,11 @@
                         echo $_SESSION['login_error_1'];
                         unset($_SESSION['login_error_1']);
                     }
+                                        if(!empty($_SESSION['login_pusty_error']))
+                    {
+                        echo $_SESSION['login_pusty_error'];
+                        unset($_SESSION['login_pusty_error']);
+                    }
                     ?>
                     
                 </div>
