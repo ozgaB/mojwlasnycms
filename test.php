@@ -1,29 +1,25 @@
 <?php
-        function pobierz_email($email){
+        function zmien_haslo($login,$nowe_haslo)
+        {
+            try{
         $options = array(PDO::MYSQL_ATTR_INIT_COMMAND, "SET NAMES 'UTF8'");
         $dbh = new PDO("mysql:host=localhost;dbname=ozgacms", "root", "", $options);
         $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        $sql="SELECT email FROM users WHERE email=?";
+        $sql="UPDATE users SET password = :nowe_haslo WHERE login = :login";
         $stmt=$dbh->prepare($sql);
-        $stmt->execute(array($email));
-            while($row = $stmt->fetch(PDO::FETCH_ASSOC))
-        {
-            return $row['email'];
+        $stmt->execute(array(':login' => $login, ':nowe_haslo' => $nowe_haslo));
+        echo "udalo sie";
+            }
+ catch (Exception $ex)
+ {
+     echo 'Połączenie z bazą nie powiodło sie: ' . $e->getMessage();
+ }
         }
-        $stmt->closeCursor(); 
-        }
-        
-        $email='jepis@onet.pl';
-        $pobrane=pobierz_email($email);
-        var_dump($pobrane);
-        if($pobrane!=NULL)
-        {
-            echo "jest różne";
-        }
-        else
-        {
-            echo "jesttakiesame";
-        }
+        $haslo1='aaaaaaaaaaaaaa';
+                $salt="cmsByOzgaB";
+        $nowe_haslo = hash("sha512", $salt.$haslo1);
+        $login='Bartek988';
+        zmien_haslo($login, $nowe_haslo);
 ?>
 
 

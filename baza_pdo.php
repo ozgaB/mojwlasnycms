@@ -89,6 +89,29 @@ try
         }
         $stmt->closeCursor(); 
         }
+        function pobierz_haslo_za_login($login){
+        $options = array(PDO::MYSQL_ATTR_INIT_COMMAND, "SET NAMES 'UTF8'");
+        $dbh = new PDO("mysql:host=localhost;dbname=ozgacms", "root", "", $options);
+        $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $sql="SELECT password FROM users WHERE login=?";
+        $stmt=$dbh->prepare($sql);
+        $stmt->execute(array($login));
+            while($row = $stmt->fetch(PDO::FETCH_ASSOC))
+        {
+            return $row['password'];
+        }
+        $stmt->closeCursor(); 
+        }
+        function zmien_haslo($login,$nowe_haslo)
+        {
+        $options = array(PDO::MYSQL_ATTR_INIT_COMMAND, "SET NAMES 'UTF8'");
+        $dbh = new PDO("mysql:host=localhost;dbname=ozgacms", "root", "", $options);
+        $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $sql="UPDATE users SET password = :nowe_haslo WHERE login = :login";
+        $stmt=$dbh->prepare($sql);
+        $stmt->execute(array(':login' => $login, ':nowe_haslo' => $nowe_haslo));
+            return 1;
+        }
     
     
 } catch (Exception $ex) {

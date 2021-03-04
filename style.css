@@ -29,3 +29,10 @@ a.akceptuj-regulamin :hover
 {
     color: red;
 }
+.button_custom_3
+{
+    background-color: #4F86C6;
+    color: white;
+    margin-left: 50px;
+    margin-top: 50px;
+}

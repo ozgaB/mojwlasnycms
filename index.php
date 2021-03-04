@@ -41,12 +41,12 @@ else
             {
             echo "
             <li class='nav-item dropdown'>
-                <a class='nav-link dropdown-toggle' href='?page=moje_konto' id='navbarDropdown' role='button' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>
+                <a class='nav-link dropdown-toggle' href='?pagelog=moje_konto' id='navbarDropdown' role='button' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>
                 Moje Konto
                 </a>
                        <!--Elementy Rozwijane-->
                     <div class='dropdown-menu' aria-labelledby='navbarDropdown'>
-                        <a class='dropdown-item' href='#'>Zarządzaj Kontem</a>
+                        <a class='dropdown-item' href='?pagelog=konto'>Zarządzaj Kontem</a>
                     </div>
         </ul>";
             }
@@ -91,7 +91,7 @@ else
                 <a class='btn btn-primary d-none' href='?page=zaloguj' role='button'>Zaloguj</a>
             </li>
             <li class='nav-item'>
-                <a class='btn button_custom_1' href='?page=wyloguj' role='button'>Wyloguj</a>
+                <a class='btn button_custom_1' href='?pagelog=wyloguj' role='button'>Wyloguj</a>
             </li>
 ";
 
@@ -113,7 +113,7 @@ else
             }
             if(isset($_GET['page']))
             {
-                $allowed_pages = array("zarejestruj", "zaloguj", "moje_konto","pomyslna_rejestracja","odbierz_rejestracje","wyloguj");       
+                $allowed_pages = array("zarejestruj", "zaloguj","pomyslna_rejestracja");       
                 $page = filter_var($_GET['page'], FILTER_SANITIZE_STRING);
                     if (!in_array($page, $allowed_pages))
                         echo "taka strona nie istnieje";
@@ -128,6 +128,31 @@ else
                                 echo "taka strona nie iestnieje";
                              }
                      }
+            }
+            if(isset($_GET['pagelog']))
+            {
+                if($_SESSION['zalogowany']>0)
+                {
+                $allowed_pages_logged = array("moje_konto","wyloguj","konto","zmien_haslo");       
+                $pagelog = filter_var($_GET['pagelog'], FILTER_SANITIZE_STRING);
+                if (!in_array($pagelog, $allowed_pages_logged))
+                 echo "taka strona nie istnieje";
+                 if (!empty($pagelog))
+                     {
+                        if (is_file($pagelog.".php"))
+                             {
+                                 include($pagelog.".php");
+                             }
+                        else
+                            {
+                                echo "taka strona nie iestnieje";
+                             }
+                     }
+                }
+                else
+                {
+                    echo "Musisz być zalogowany by wyświetlić zawartość";
+                }
             }
             ?>
              

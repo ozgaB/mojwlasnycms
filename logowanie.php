@@ -19,7 +19,7 @@ if(isset($_POST['login']))
                {
                    $_SESSION['zalogowany']=pobierz_id_user($login_otrzymany);
                    $_SESSION['user_login']=$login_otrzymany;
-                   $_SESSION['user_email']=pobierz_email($login);
+                   $_SESSION['user_email']=pobierz_email_za_login($login);
                    header("Location: index.php");  
                }
                else
