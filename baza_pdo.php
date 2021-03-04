@@ -76,6 +76,19 @@ try
         }
         $stmt->closeCursor(); 
         }
+        function pobierz_email_za_login($login){
+        $options = array(PDO::MYSQL_ATTR_INIT_COMMAND, "SET NAMES 'UTF8'");
+        $dbh = new PDO("mysql:host=localhost;dbname=ozgacms", "root", "", $options);
+        $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $sql="SELECT email FROM users WHERE login=?";
+        $stmt=$dbh->prepare($sql);
+        $stmt->execute(array($login));
+            while($row = $stmt->fetch(PDO::FETCH_ASSOC))
+        {
+            return $row['email'];
+        }
+        $stmt->closeCursor(); 
+        }
     
     
 } catch (Exception $ex) {

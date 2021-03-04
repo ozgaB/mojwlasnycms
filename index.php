@@ -1,9 +1,14 @@
 <?php
 session_start();
-$_SESSION['zalogowany']=0;
-//$_SESSION['user_login']="Bartek98";
+if(isset($_SESSION['zalogowany']))
+{
+    
+}
+else
+{
+    $_SESSION['zalogowany']=0;
+}
 //$_SESSION['img_status']=1;
-//$_SESSION['user_id']=12;
 ?>
 <html lang="pl">
     <head>

@@ -17,8 +17,10 @@ if(isset($_POST['login']))
                $haslo_odebrane=pobierz_haslo($haslo);
                if($haslo==$haslo_odebrane)
                {
-                   $_SESSION['zalogowano']=pobierz_id_user($login_otrzymany);
-                   echo "zalogowano";
+                   $_SESSION['zalogowany']=pobierz_id_user($login_otrzymany);
+                   $_SESSION['user_login']=$login_otrzymany;
+                   $_SESSION['user_email']=pobierz_email($login);
+                   header("Location: index.php");  
                }
                else
                {
