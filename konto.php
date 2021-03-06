@@ -15,14 +15,13 @@
             </div>
             <div id='zmien_email'>
                 <a class='btn button_custom_3 btn-block' href='?pagelog=zmien_email' role='button'>Zmień email</a>
-                
             </div>
             <div id='dodaj_opis'>
                 <a class='btn button_custom_3 btn-block' href='?pagelog=zmien_opis' role='button'>Zmień opis</a>
                 
             </div>
             <div id='obrazek'>
-                <a class='btn button_custom_3 btn-block' href='?pagelog=obrazek' role='button'>Zmień avatar</a>
+                <a class='btn button_custom_3 btn-block' href='?pagelog=avatar' role='button'>Zmień avatar</a>
                 
             </div>
             
@@ -41,7 +40,12 @@
             
             
         </div>
-        <div class="col-4"></div>
+        <div class="col-4">
+
+            
+            
+            
+        </div>
         
         
         

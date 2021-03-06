@@ -36,3 +36,9 @@ a.akceptuj-regulamin :hover
     margin-left: 50px;
     margin-top: 50px;
 }
+.button_custom_4
+{
+    background-color: #4F86C6;
+    color: white;
+    margin-top: 200px;  
+}

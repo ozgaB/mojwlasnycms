@@ -128,6 +128,7 @@ if(isset($_POST['login']))
                  
             require_once 'mail_aktywacyjny.php';
             wyslij_aktywacje();
+            wprowadz_rejestracja_bio($login);
                  $_SESSION['pomyslna_rejestracja']="<h2 class='form-text ' style='color:#4F86C6;'>Konto zostało założone, wysłaliśmy mail z linkiem aktywującym!</h2>";
                  header("Location: index.php?page=pomyslna_rejestracja");
         }

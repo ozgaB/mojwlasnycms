@@ -48,7 +48,7 @@
                     }
                     ?>
                 </div>
-                    <p>TU BĘDZIE KAPCZA</p>
+                    <p>TU BĘDZIE KAPCZA   ZRÓB PRZYPOMNIENIE HASŁA</p>
                     <div class='form-group'>
                         <button class='btn button_custom_2 btn-block' type='submit' >Zaloguj!</button>
                     </div>

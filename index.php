@@ -2,13 +2,34 @@
 session_start();
 if(isset($_SESSION['zalogowany']))
 {
-    
+
 }
 else
 {
     $_SESSION['zalogowany']=0;
 }
 //$_SESSION['img_status']=1;
+
+    require_once 'baza_pdo.php';
+    if(isset($_SESSION['user_login'])){
+    $login=$_SESSION['user_login'];
+    $_SESSION['img_status']=pobierz_img_status($login);
+    }
+    if ($_SESSION['zalogowany'] >0 && $_SESSION['komp_info'] != $_SERVER['HTTP_USER_AGENT']) // Zmiana przeglądarki zabezpieczenie
+{
+    echo "zostajesz wylogowany z powodu zmiany";
+    $_SESSION['zalogowany'] == 0;
+    session_destroy();
+}  
+   /*  if(!isset($_SESSION['initiate']))     //regeneracja id sesji
+ {
+     session_regenerate_id();
+     $new_session_id = session_id();
+     session_write_close();
+     session_id($new_session_id);
+     session_start();
+     $_SESSION['initiate'] = 1;
+ }  */
 ?>
 <html lang="pl">
     <head>
@@ -133,10 +154,12 @@ else
             {
                 if($_SESSION['zalogowany']>0)
                 {
-                $allowed_pages_logged = array("moje_konto","wyloguj","konto","zmien_haslo");       
+                $allowed_pages_logged = array("moje_konto","wyloguj","konto","zmien_haslo","zmien_email","avatar","zmien_opis");       
                 $pagelog = filter_var($_GET['pagelog'], FILTER_SANITIZE_STRING);
                 if (!in_array($pagelog, $allowed_pages_logged))
                  echo "taka strona nie istnieje";
+                else
+                {
                  if (!empty($pagelog))
                      {
                         if (is_file($pagelog.".php"))
@@ -148,6 +171,7 @@ else
                                 echo "taka strona nie iestnieje";
                              }
                      }
+                }
                 }
                 else
                 {
