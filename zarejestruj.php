@@ -65,6 +65,8 @@
 
                     ?>
                 </div>
+                        <a class='btn  btn-block' href='?pagelog=konto' role='button'>Powrót</a> 
+
             </form>
         </div> 
         <div class="col-2">

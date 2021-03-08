@@ -52,7 +52,8 @@
                     <div class='form-group'>
                         <button class='btn button_custom_2 btn-block' type='submit' >Zaloguj!</button>
                     </div>
-                    
+                            <a class='btn  btn-block' href='?pagelog=konto' role='button'>Powrót</a> 
+
                 </form>     
     
     

@@ -44,7 +44,9 @@
                     echo '<h2>'.$_SESSION['user_login'].'</h2></br>';
                     echo '<h3>'.$_SESSION['user_email'].'</h3></br>';
                     $opis=pobierz_opis_za_login($login);
-                    echo "<small class='form-text ' style='color:#4F86C6;'>$opis</small>"
+                    echo "<h3 class='form-text ' style='color:#4F86C6;'>$opis</h3>";
+                            
+                            echo "DODAJ TIME OUT/przypomnij hasło/kapcze/mail aktywujacy/main content/stopka/wirtualna waluta/resize na mniejsze urzadzenia";
                        ?>
                 
                 
