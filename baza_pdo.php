@@ -141,6 +141,14 @@ try
             return $row['img_status'];
         }
         }
+        function zmien_img_status($login,$img_status){
+        $options = array(PDO::MYSQL_ATTR_INIT_COMMAND, "SET NAMES 'UTF8'");
+        $dbh = new PDO("mysql:host=localhost;dbname=ozgacms", "root", "", $options);
+        $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $sql="UPDATE user_bio INNER JOIN users ON user_bio.id_user=users.id_user SET img_status = :img_status  WHERE login = :login";
+        $stmt=$dbh->prepare($sql);
+        $stmt->execute(array(':login' => $login, ':img_status' => $img_status));
+        }
         function pobierz_opis_za_login($login){
         $options = array(PDO::MYSQL_ATTR_INIT_COMMAND, "SET NAMES 'UTF8'");
         $dbh = new PDO("mysql:host=localhost;dbname=ozgacms", "root", "", $options);

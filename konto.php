@@ -30,9 +30,21 @@
         </div>
         <div class='col-2'></div>
         <div class="col-4">
-            <div id='twoje_dane'>
-                <?php  echo '<h2>'.$_SESSION['user_login'].'</h2></br>';
-                       echo '<h3>'.$_SESSION['user_email'].'</h3></br>';
+            <div id='twoje_dane' class='ramka_cien'>
+                <?php  
+                    $img_status=pobierz_img_status($login);
+                    if($img_status==1)
+                    {
+                     echo "<img src='img/users_img/".$id_user."avatar.png' class='avatar_img_Duzy' alt=''></img>";
+                    }
+                     else
+                    {
+                     echo "<img src='img/av_test.png'></img>";  
+                    }  
+                    echo '<h2>'.$_SESSION['user_login'].'</h2></br>';
+                    echo '<h3>'.$_SESSION['user_email'].'</h3></br>';
+                    $opis=pobierz_opis_za_login($login);
+                    echo "<small class='form-text ' style='color:#4F86C6;'>$opis</small>"
                        ?>
                 
                 

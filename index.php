@@ -88,9 +88,9 @@ else
                             }
                             else
                             {
-                                require_once 'pobieranie_wysylanie.php';
-                                $filedirectory = pobierzAvatar($_SESSION['user_id']);
-                                echo "<li class='nav-item'><div class='av-test'><img src='$filedirectory' alt='avatar_uzytkownika'></div></li>    ";
+                                $login=$_SESSION['user_login'];
+                                $id_user= pobierz_id_user($login);
+                                echo "<li class='nav-item'><div class='av-test'><img src='img/users_img/".$id_user."avatar.png' class='avatar_img_bar' alt='avatar_uzytkownika'></div></li>    ";
                                 
                             }
                         }

@@ -1,7 +1,8 @@
 <?php
 require_once 'baza_pdo.php';
-$id_user=pobierz_id_user($_SESSION['user_login']);
-$img_status=pobierz_img_status($_SESSION['user_login']);
+$login=$_SESSION['user_login'];
+$id_user=pobierz_id_user($login);
+$img_status=pobierz_img_status($login);
 ?>
 
 <div class="row">
@@ -13,23 +14,25 @@ $img_status=pobierz_img_status($_SESSION['user_login']);
         if($img_status==0)
         {
           echo "<h2>Dodaj swoje zdjęcie profilowe</h2>";
-          echo   "<form action='avatar.php' method='post' enctype='multipart/form-data'>
+          echo   "<form action='index.php?pagelog=avatar' method='post' enctype='multipart/form-data'>
             <div>
                 <input type='hidden' name='Max_FILE_SIZE' value='30000000' />
-              <input class='btn button_custom_4 btn-block' type='file' name='plik' value='Wybierz plik .png' />
-              <input class='btn button_custom_4 btn-block' type='submit' value='Dodaj zdjęcie'/>
+              <input class='btn button_custom_5 btn-block' type='file' name='avatar_dodaj' />
+              <input class='btn button_custom_5 btn-block' type='submit' value='Dodaj zdjęcie'/>
                 </div>";
+                wyswietl_error_avatar();
         }
         else
         {
           echo "<h2>Zmień swoje zdjęcie profilowe</h2>";
-          echo   "<form action='avatar.php' method='post' enctype='multipart/form-data'>
+          echo   "<form action='index.php?pagelog=avatar' method='post' enctype='multipart/form-data'>
             <div>
-                <input type='hidden' name='Max_FILE_SIZE' value='30000000' />
-              <input type='file' name='plik' />
-              <input type='submit' value='Dodaj Plik'/>
+                <input type='hidden' name='Max_FILE_SIZE' value='512000' />
+              <input class='btn button_custom_5 btn-block' type='file' name='avatar_zmien' />
+              <input class='btn button_custom_5 btn-block' type='submit' value='Dodaj Plik'/>
                 </div>"; 
-        }
+                wyswietl_error_avatar();
+          }
 
         ?> 
         
@@ -44,7 +47,7 @@ $img_status=pobierz_img_status($_SESSION['user_login']);
         <?php    
         if($img_status==1)
         {
-            echo "<img src='img/users_img/$id_user.avatar.png'></img>";
+            echo "<img src='img/users_img/".$id_user."avatar.png' class='avatar_img_Duzy' alt=''></img>";
         }
         else
         {
@@ -53,22 +56,71 @@ $img_status=pobierz_img_status($_SESSION['user_login']);
         
         
         ?>
-        <img src="img/users_img/"></img>
+        
     </div>
     <div class="col-2"></div>    
 </div>
         
         <?php
-        /*if(isset($_FILES['plik']))
+        if(isset($_FILES['avatar_dodaj']))
         {
-           if($_FILES['plik']['type'] != 'image/png')
+        $avatar='avatar_dodaj';
+        walidacja_avatar($avatar,$login,$id_user);
+        }
+        if(isset($_FILES['avatar_zmien']))
+        {
+            if(unlink("img/users_img/".$id_user."avatar.png")==true)
+            {
+                           $avatar='avatar_zmien';
+                           walidacja_avatar($avatar,$login,$id_user);
+                                                                                    //DO BAZY ZAPISUJE ROZSZERZENIE I POTEM JAKO ZMIENNA ODCZYTUJE//   DO ZROBIENIA
+            }
+            else
+            {
+            $_SESSION['avatar_zmien_usun'] = "<small class='form-text ' style='color:red;'>Nie udało się zastąpić poprzedniego zdjęcia!</small>";
+ 
+            }
+        }
+        
+        
+        
+        function wyswietl_error_avatar()
+        {
+                    if(!empty($_SESSION['avatar_format_error']))
+                    {
+                        echo $_SESSION['avatar_format_error'];
+                        unset($_SESSION['avatar_format_error']);
+                    }
+                                        if(!empty($_SESSION['avatar_zaduzo_error']))
+                    {
+                        echo $_SESSION['avatar_zaduzo_error'];
+                        unset($_SESSION['avatar_zaduzo_error']);
+                    }
+        }
+        
+        
+        
+        
+        function walidacja_avatar($avatar,$login,$id_user)
+        {
+                        if($_FILES[$avatar]['size']<512000)
+            {
+              
+           if($_FILES[$avatar]['type'] != 'image/png')
            {
-               echo "plik musi mieć format png";
+                                            
+
+            $_SESSION['avatar_format_error'] = "<small class='form-text ' style='color:red;'>Zdjęcie musi być w formacie png!</small>";
            }
            else{
-            move_uploaded_file($_FILES['plik']['tmp_name'], "images/".$_FILES['plik']['name']);
-    
-            switch($_FILES['plik']['error'])
+                              
+
+            move_uploaded_file($_FILES[$avatar]['tmp_name'], "img/users_img/".$id_user."avatar.png");
+            $img_status=1;
+            zmien_img_status($login, $img_status);
+            header("Location: index.php?pagelog=avatar");
+
+            switch($_FILES[$avatar]['error'])
             {
                 case 0;
                     break;
@@ -83,6 +135,10 @@ $img_status=pobierz_img_status($_SESSION['user_login']);
                     echo "blad";
             }
            }
-        }*/
-        
+        }
+        else
+        {
+            $_SESSION['avatar_zaduzo_error'] = "<small class='form-text ' style='color:red;'>Zdjęcie nie może przekraczać 0,5MB!</small>";
+        }
+        }
         ?>
