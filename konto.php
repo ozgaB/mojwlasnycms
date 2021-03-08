@@ -7,6 +7,7 @@
 
 ?>
 <head><link rel="stylesheet" href="style.css"></head>
+<div id="kontoo">
 <div id="konto">
     <div class="row">
         <div class="col-2">
@@ -58,7 +59,7 @@
     
     
 </div>
-
+</div>
 
 
 

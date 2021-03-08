@@ -141,7 +141,35 @@ try
             return $row['img_status'];
         }
         }
-    
+        function pobierz_opis_za_login($login){
+        $options = array(PDO::MYSQL_ATTR_INIT_COMMAND, "SET NAMES 'UTF8'");
+        $dbh = new PDO("mysql:host=localhost;dbname=ozgacms", "root", "", $options);
+        $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $sql="SELECT description FROM user_bio INNER JOIN users ON user_bio.id_user=users.id_user WHERE login=?";
+        $stmt=$dbh->prepare($sql);
+        $stmt->execute(array($login));
+            while($row = $stmt->fetch(PDO::FETCH_ASSOC))
+        {
+            return $row['description'];
+        }
+        }
+        function zmien_opis($login,$description)
+        {
+        $options = array(PDO::MYSQL_ATTR_INIT_COMMAND, "SET NAMES 'UTF8'");
+        $dbh = new PDO("mysql:host=localhost;dbname=ozgacms", "root", "", $options);
+        $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $sql="UPDATE user_bio INNER JOIN users ON user_bio.id_user=users.id_user SET description = :description WHERE login = :login";
+        $stmt=$dbh->prepare($sql);
+        try
+        {
+        $stmt->execute(array(':login' => $login, ':description' => $description));
+        }
+ catch (Exception $ex)
+ {
+     echo 'Połączenie z bazą nie powiodło sie: ' . $e->getMessage();
+ }
+            return 1;
+        }
     
 } catch (Exception $ex) {
     echo 'Połączenie z bazą nie powiodło sie: ' . $e->getMessage();
